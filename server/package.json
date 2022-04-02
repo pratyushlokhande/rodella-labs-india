@@ -1,0 +1,20 @@
+{
+  "name": "rodella-server",
+  "version": "1.0.0",
+  "description": "Rodella Labs India",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.3",
+    "mavlink": "^1.0.1",
+    "node-mavlink": "^1.0.13",
+    "serialport": "^10.4.0",
+    "socket.io": "^4.4.1"
+  }
+}

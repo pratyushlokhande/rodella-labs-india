@@ -70,7 +70,7 @@ io.on("connection", (socket) => {
 
     if (clazz.name === "Attitude") {
       const data = packet.protocol.data(packet.payload, clazz);
-      // console.log(data["yawspeed"]);
+      // console.log(data);
       socket.emit("attitude", data);
     }
 
@@ -94,26 +94,24 @@ io.on("connection", (socket) => {
 
     if (clazz.name === "PositionTargetGlobalInt") {
       const data = packet.protocol.data(packet.payload, clazz);
-      // console.log(data["yawspeed"]);
+      // console.log(data);
       socket.emit("global_position", data);
     }
   });
 
-  // Send Messgage
   socket.on("sendMsg", (message) => {
-    // Create an instance of of the `CommandInt` class that will be the vessel
-    // for containing the command data
-    const msg = new common.CommandInt();
-    msg.command = common.MavCmd.REQUEST_PROTOCOL_VERSION;
-    msg.param1 = 1;
-
-    port.on("open", async () => {
+    port.open(async () => {
+      const msg = new common.CommandInt();
+      // msg.command = common.MavCmd.REQUEST_PROTOCOL_VERSION;
+      msg.command = common.MavCmd.COMPONENT_ARM_DISARM;
+      msg.param1 = 5;
       // the port is open - we're ready to send data
-      await send(port, msg, new MavLinkProtocolV2());
+      const res = await send(port, msg);
+      console.log(res);
     });
 
-    console.log(message);
-    console.log(msg);
+    // console.log(message);
+    // console.log(msg);
   });
 
   // USER DISCONNECTED
